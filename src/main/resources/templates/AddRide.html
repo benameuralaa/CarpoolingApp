@@ -87,8 +87,8 @@
             font-size: 16px;
             border: 1px solid #ccc;
             margin-bottom: 15px;
-            resize: none;
-            height: 50px;
+            resize: vertical; /* Permet de redimensionner verticalement */
+            height: 100px;
             width: 100%;
         }
         .btn-submit {
@@ -131,9 +131,6 @@
 
             <!-- Price per Seat -->
             <input type="text" class="form-control" placeholder="Price per Seat (in TND)" required>
-
-            <!-- Driver -->
-            <input type="text" class="form-control" placeholder="Driver's Name" required>
 
             <!-- Restriction -->
             <textarea class="textarea-fixed" placeholder="Add Restrictions: No Smoking, No Pets ..."></textarea>
