@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Ride</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Layout */
         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             background: linear-gradient(135deg, #0096CE, #ffffff);
-            margin: 0;
         }
         /* Nav Bar */
         .navbar {
             background-color: #fff;
             border-bottom: 1px solid #ddd;
-            height: 60px;
         }
         .navbar-brand {
             font-weight: bold;
@@ -26,35 +28,52 @@
         .navbar-nav .nav-link:hover {
             color: #007bff;
         }
+        /* Footer */
+        footer {
+            background-color: #f8f9fa; /* Définit une couleur de fond pour le footer */
+            padding: 20px 0; /* Ajoute un espace intérieur en haut et en bas du footer */
+            position: fixed; /* Fixe le footer en bas de la page */
+            bottom: 0; /* Place le footer tout en bas de la fenêtre */
+            width: 100%; /* Étend le footer sur toute la largeur de la page */
+            text-align: center; /* Centre le texte */
+            border-top: 1px solid #ddd; /* Ajoute une bordure grise en haut du footer */
+            margin-top: auto; /* Permet de pousser le footer en bas lorsque le contenu est insuffisant */
+            display: flex; /* Active Flexbox pour organiser les éléments à l'intérieur du footer */
+            flex-direction: column; /* Organise les éléments en colonne (les uns sous les autres) */
+            gap: 10px; /* Ajoute un espace entre les éléments */
+        }
         .container {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
-
+        /* Conteneur du formulaire */
         .add-ride-container {
             background: #fff;
             border-radius: 20px;
             box-shadow: 5px 6px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px 20px;
+            padding: 20px 10px; /* espace autour du formulaire */
             width: 100%;
-            max-width: 450px;
+            max-width: 450px; /* largeur maximale */
+            height:550px;
+            margin-top: 10px;
         }
+        /* Titre du formulaire */
         .add-ride-container h1 {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 26px;
+            margin-bottom: 15px; /*  l'espace sous le titre */
+            font-size: 20px; /* la taille du titre */
             font-weight: bold;
             color: #0096CE;
         }
+        /* Champs du formulaire */
         .form-control {
-            border-radius: 25px;
-            padding: 15px;
-            font-size: 16px;
+            border-radius: 20px;
+            padding: 12px; /* l'espace à l'intérieur des champs */
+            font-size: 13px;
             border: 1px solid #ccc;
-            margin-bottom: 15px;
-            height: 50px;
+            margin-bottom: 12px; /* l'espace entre les champs */
+            height: 45px; /*  la hauteur des champs */
             width: 100%;
         }
         .form-control:focus {
@@ -80,7 +99,7 @@
             width: 100%;
             font-size: 16px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 14px; /* l'espace entre le bouton et les champs */
         }
         .btn-submit:hover {
             background: #007bb5;
@@ -89,39 +108,9 @@
     </style>
 </head>
 <body>
-<!-- Navbar -->
-<header>
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Ride Flow</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Add Ride</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reserve Ride</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Drivers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Sign In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact us</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-</header>
+<!-- Inclure la Navbar -->
+<div th:replace="~{fragments :: header}"></div>
+
 <!-- Form Container -->
 <div class="container">
     <div class="add-ride-container">
@@ -153,6 +142,8 @@
         </form>
     </div>
 </div>
+<!-- Inclure le Footer -->
+<div th:insert="fragments :: footer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

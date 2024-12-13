@@ -16,9 +16,9 @@ public class RideFlowController {
     }
 
 
-    @GetMapping("/search")
+    @GetMapping("/Search")
     public String search() {
-        return "search"; // Renvoie la vue search.html
+        return "Search"; // Renvoie la vue search.html
     }
 
     @GetMapping("/AddRide")
@@ -31,9 +31,9 @@ public class RideFlowController {
         return "ReserveRide"; // Renvoie la vue ReserveRide.html
     }
 
-    @GetMapping("/drivers")
+    @GetMapping("/Drivers")
     public String drivers() {
-        return "drivers"; // Renvoie la vue drivers.html
+        return "Drivers"; // Renvoie la vue drivers.html
     }
 
     @GetMapping("/SignIn")
@@ -45,8 +45,8 @@ public class RideFlowController {
         return "SignUp"; // Renvoie la vue SignUp.html
     }
 
-    @GetMapping("/contact")
+    @GetMapping("/Contact")
     public String contact() {
-        return "contact"; // Renvoie la vue contact.html
+        return "Contact"; // Renvoie la vue contact.html
     }
 }
