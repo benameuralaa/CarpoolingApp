@@ -45,7 +45,7 @@
             background: #fff;
             border-radius: 20px;
             box-shadow: 5px 6px 25px rgba(0, 0, 0, 0.1);
-            padding: 50px 40px;
+            padding: 40px 30px;
             width: 100%;
             max-width: 400px;
             height: 550px;
@@ -56,17 +56,16 @@
         }
         .sign-up-container h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 28px;
             font-weight: bold;
             color: #0096CE;
         }
         .form-control {
             border-radius: 25px;
-            padding: 14px 20px;
+            padding: 13px 17px;
             font-size: 16px;
             border: 1px solid #ccc;
-            margin-bottom: 15px;
         }
         .form-control:focus {
             border-color: #0096CE;
@@ -81,14 +80,13 @@
             width: 100%;
             font-size: 14px;
             cursor: pointer;
-            margin-top: 15px;
         }
         .btn-sign-up:hover {
             opacity: 0.9;
         }
         .login-link {
             text-align: center;
-            margin-top: 30px; /* Plus d'espace au-dessus du lien Login */
+            margin-top: 10px; /* Plus d'espace au-dessus du lien Login */
             font-size: 16px;
         }
         .login-link a {
@@ -119,6 +117,13 @@
         </div>
         <div class="mb-4">
             <input type="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="mb-4">
+            <select class="form-control" id="role" name="role" aria-label="Role">
+                <option selected disabled>Select your Role</option>
+                <option value="driver">Driver</option>
+                <option value="passenger" >Passenger</option>
+            </select>
         </div>
         <button type="submit" class="btn-sign-up">SIGN UP</button>
         <div class="d-flex justify-content-center login-link">
