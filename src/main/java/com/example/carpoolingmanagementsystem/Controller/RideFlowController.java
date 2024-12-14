@@ -6,21 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RideFlowController {
 
-    @GetMapping("/")
-    public String Home() {
-        return "Home"; // Renvoie la vue Home.html
-    }
-    @GetMapping("/Home")
-    public String home() {
-        return "Home"; // Renvoie la vue Home.html
-    }
-
-
     @GetMapping("/Search")
     public String search() {
         return "Search"; // Renvoie la vue search.html
     }
-
+    @GetMapping("/Contact")
+    public String contact() {
+        return "Contact"; // Renvoie la vue contact.html
+    }
     @GetMapping("/AddRide")
     public String addRide() {
         return "AddRide"; // Renvoie la vue AddRide.html
@@ -36,17 +29,4 @@ public class RideFlowController {
         return "Drivers"; // Renvoie la vue drivers.html
     }
 
-    @GetMapping("/SignIn")
-    public String SignIn() {
-        return "SignIn"; // Renvoie la vue SignIn.html
-    }
-    @GetMapping("/SignUp")
-    public String SignUp() {
-        return "SignUp"; // Renvoie la vue SignUp.html
-    }
-
-    @GetMapping("/Contact")
-    public String contact() {
-        return "Contact"; // Renvoie la vue contact.html
-    }
 }

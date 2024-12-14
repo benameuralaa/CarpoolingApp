@@ -92,12 +92,31 @@
             font-size: 16px;
         }
         .sign-up a {
-            color: #8A2BE2;
+            color: #000;
             text-decoration: none;
             font-weight: bold;
         }
         .sign-up a:hover {
             text-decoration: underline;
+        }
+        /* Styles supplémentaires */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: auto;
+            max-width: 500px;
+            text-align: center;
+            z-index: 9999;
+        }
+        .success-message {
+            color: green;
+        }
+        .error-message {
+            color: red;
         }
     </style>
 </head>
@@ -105,26 +124,64 @@
 <!-- Inclure la Navbar -->
 <div th:replace="~{fragments :: header}"></div>
 
+<!-- Affichage message flash  succes : Registered successfully! Please sign in-->
+<div th:if="${RegisteredSuccessfullyMessage != null}"
+     th:classappend="'success-message'"
+     class="message-container"
+     th:text="${RegisteredSuccessfullyMessage}" id="flashMessage1">
+</div>
+
+<!-- Affichage du message flash erreur : Invalid credentials! Please try again. -->
+<div th:if="${InvalidcredentialsMessage != null}"
+     th:classappend="'error-message'"
+     class="message-container"
+     th:text="${InvalidcredentialsMessage}" id="flashMessage2">
+</div>
+
 <div class="login-container">
     <h1>Log In</h1>
-    <form>
+    <form action="#" th:action="@{/SignIn}" th:object="${user}" method="post">
         <div class="mb-4">
-            <input type="text" class="form-control" placeholder="Username">
+            <input type="text" class="form-control" placeholder="Email" th:field="*{email}" required>
         </div>
         <div class="mb-4">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password" th:field="*{password}" required>
         </div>
-        <button type="submit" class="btn-login">Sign In</button>
-        <div class="d-flex justify-content-center sign-up">
-            <p style="font-size: 14px; color: #000; margin-bottom: 0;">You have not an account?
-                <a th:href="@{/SignUp}" style="color: #000">Sign Up</a>
+        <button type="submit" class="btn-login">SIGN IN</button>
+        <div class="sign-up">
+            <p>
+                You don't have an account?
+                <a th:href="@{/SignUp}" class="sign-up">Sign Up</a>
             </p>
         </div>
     </form>
+
+    <script>
+        // Fonction pour faire disparaître les messages après 2 secondes
+        window.onload = function() {
+            // Gestion du message flash1 (success)
+            var message1 = document.getElementById('flashMessage1');
+            if (message1) {
+                setTimeout(function() {
+                    message1.style.display = 'none'; // Cache le message après 2 secondes
+                }, 2000); // 2000ms = 2 secondes
+            }
+
+            // Gestion du message flash2 (error)
+            var message2 = document.getElementById('flashMessage2');
+            if (message2) {
+                setTimeout(function() {
+                    message2.style.display = 'none'; // Cache le message après 2 secondes
+                }, 2000); // 2000ms = 2 secondes
+            }
+        };
+    </script>
+
 </div>
 
 <!-- Inclure le Footer -->
-<div th:insert="fragments :: footer"></div>
+<div th:replace="~{fragments :: footer}"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

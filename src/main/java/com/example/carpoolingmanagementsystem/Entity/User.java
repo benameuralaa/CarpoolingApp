@@ -8,28 +8,20 @@ import java.math.BigDecimal;
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int id;
+        private Long id;
         private String name;
-
-        @Enumerated(EnumType.STRING)
-        private Role role;
-        // Enum pour 'role' (driver ou passenger)
-        public enum Role {
-            DRIVER,
-            PASSENGER
-        }
         private String email;
         private String password;
         private String phone;
-        private BigDecimal rating;
-
+        private String role;
+        public enum Role {
+            DRIVER, PASSENGER
+        }
         // Getters and setters
-
-        public int getId() {
+        public Long getId() {
             return id;
         }
-
-        public void setId(int id) {
+        public void setId(Long id) {
             this.id = id;
         }
 
@@ -41,12 +33,17 @@ import java.math.BigDecimal;
             this.name = name;
         }
 
-        public Role getRole() {
+        public String getRole() {
             return role;
         }
 
-        public void setRole(Role role) {
-            this.role = role;
+        public void setRole(String role) {
+            // Valider ici si le rôle est l'une des valeurs valides
+            if (role != null && (role.equalsIgnoreCase("DRIVER") || role.equalsIgnoreCase("PASSENGER"))) {
+                this.role = role.toUpperCase(); // Normaliser la casse (optionnel)
+            } else {
+                throw new IllegalArgumentException("Invalid role value");
+            }
         }
 
         public String getEmail() {
@@ -72,15 +69,6 @@ import java.math.BigDecimal;
         public void setPhone(String phone) {
             this.phone = phone;
         }
-
-        public BigDecimal getRating() {
-            return rating;
-        }
-
-        public void setRating(BigDecimal rating) {
-            this.rating = rating;
-        }
-
     }
 
 

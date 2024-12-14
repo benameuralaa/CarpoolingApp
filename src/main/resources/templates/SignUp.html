@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
@@ -90,12 +91,31 @@
             font-size: 16px;
         }
         .login-link a {
-            color: #8A2BE2;
+            color: #000;
             text-decoration: none;
             font-weight: bold;
         }
         .login-link a:hover {
             text-decoration: underline;
+        }
+        /* Styles supplémentaires */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: auto;
+            max-width: 500px;
+            text-align: center;
+            z-index: 9999;
+        }
+        .success-message {
+            color: green;
+        }
+        .error-message {
+            color: red;
         }
     </style>
 </head>
@@ -103,39 +123,60 @@
 <!-- Inclure la Navbar -->
 <div th:replace="~{fragments :: header}"></div>
 
+<!-- Affichage du message Email already exists! Please try again. -->
+<div th:if="${EmailExistsErrorMessage != null}"
+     th:classappend="'error-message'"
+     class="message-container"
+     th:text="${EmailExistsErrorMessage}" id="flashMessage">
+</div>
+
 <div class="sign-up-container">
     <h1>Create Account</h1>
-    <form>
+    <form action="#" th:action="@{/SignUp}" th:object="${user}" method="post">
         <div class="mb-4">
-            <input type="text" class="form-control" placeholder="Name">
+            <input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
         </div>
         <div class="mb-4">
-            <input type="text" class="form-control" placeholder="Phone">
+            <input type="text" class="form-control" placeholder="Phone" th:field="*{phone}" required>
         </div>
         <div class="mb-4">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" class="form-control" placeholder="Email" th:field="*{email}" required>
         </div>
         <div class="mb-4">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password" th:field="*{password}" required>
         </div>
         <div class="mb-4">
-            <select class="form-control" id="role" name="role" aria-label="Role">
-                <option selected disabled>Select your Role</option>
+            <select class="form-control" id="role" name="role" th:field="*{role}" aria-label="Role">
+                <option value="" selected disabled>Select your Role</option>
                 <option value="driver">Driver</option>
-                <option value="passenger" >Passenger</option>
+                <option value="passenger">Passenger</option>
             </select>
         </div>
         <button type="submit" class="btn-sign-up">SIGN UP</button>
-        <div class="d-flex justify-content-center login-link">
-            <p style="font-size: 14px; color: #000; margin-bottom: 0;">Already have an account?
-                <a th:href="@{/SignIn}" style="color: #000">Sign In</a>
+        <div class="login-link">
+            <p>
+                Already have an account?
+                <a th:href="@{/SignIn}" class="login-link">Sign In</a>
             </p>
         </div>
+
     </form>
+    <script>
+        // Fonction pour faire disparaître le message après 3 secondes
+        window.onload = function() {
+            var message = document.getElementById('flashMessage');
+            if (message) {
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 2000); // 2000ms = 2 secondes
+            }
+        };
+    </script>
 </div>
 
 <!-- Inclure le Footer -->
-<div th:insert="fragments :: footer"></div>
+<div th:replace="~{fragments :: footer}"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

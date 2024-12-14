@@ -9,25 +9,24 @@ public class Ride {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String startLocation; // Lieu de départ
-    private String endLocation; // Lieu d'arrivée
-    private LocalDateTime departureTime; // Heure de départ
-    private int seatsAvailable; // Nombre de sièges disponibles
-    private BigDecimal pricePerSeat; // Prix par siège
-    private String restrictions; // Restrictions éventuelles
+    private Long id;
+    private String startLocation;
+    private String endLocation;
+    private LocalDateTime departureTime;
+    private int seatsAvailable;
+    private BigDecimal pricePerSeat;
+    private String restrictions;
 
     @ManyToOne
     @JoinColumn(name = "driver_id", nullable = false) // Relation avec l'entité User (conducteur)
     private User driver; // Conducteur du trajet
 
     // Getters et Setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

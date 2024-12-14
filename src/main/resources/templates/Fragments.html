@@ -54,39 +54,66 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Section pour les utilisateurs connectés -->
+            <div th:if="${session.user != null}" class="collapse navbar-collapse" id="navbarNavLoggedIn">
                 <ul class="navbar-nav ms-auto">
+                    <!-- Liens communs -->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/Search}">Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/AddRide}">Add Ride</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/ReserveRide}">Reserve Ride</a>
+                        <a class="nav-link" th:href="@{/Contact}">Contact us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/Drivers}">Drivers</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/Contact}">Contact us</a>
+                    <!-- Liens pour les conducteurs -->
+                    <li class="nav-item" th:if="${session.role == 'DRIVER'}">
+                        <a class="nav-link" th:href="@{/AddRide}">Add Ride</a>
+                    </li>
+                    <!-- Liens pour les passagers -->
+                    <li class="nav-item" th:if="${session.role == 'PASSENGER'}">
+                        <a class="nav-link" th:href="@{/ReserveRide}">Reserve Ride</a>
                     </li>
 
+                    <!--Account DropDown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i> <!-- Icône d'utilisateur -->
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" th:href="@{/Profile}">Profile</a></li>
+                            <li><a class="dropdown-item" th:href="@{/Logout}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section pour les utilisateurs non connectés -->
+            <div th:if="${session.user == null}" class="collapse navbar-collapse" id="navbarNavGuest">
+                <ul class="navbar-nav ms-auto">
+                    <!--Account DropDown -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Search}">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Contact}">Contact us</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Sign_in_up_Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> <!-- Icône d'utilisateur -->
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Sign_in_up_Dropdown">
                             <li><a class="dropdown-item" th:href="@{/SignIn}">Sign In</a></li>
                             <li><a class="dropdown-item" th:href="@{/SignUp}">Sign Up</a></li>
                         </ul>
                     </li>
-
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
 <!-- Footer Fragment -->
 <footer th:fragment="footer">
     <div class="container">
