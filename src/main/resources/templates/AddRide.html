@@ -116,30 +116,32 @@
 <div class="container">
     <div class="add-ride-container">
         <h1>Add Ride</h1>
-        <form>
+        <!-- Lien avec l'objet Ride -->
+        <form th:action="@{/AddRide}" th:object="${ride}" method="post">
             <!-- Start Location -->
-            <input type="text" class="form-control" placeholder="Start Location" required>
+            <input type="text" class="form-control" th:field="*{startLocation}" placeholder="Start Location" required>
 
             <!-- End Location -->
-            <input type="text" class="form-control" placeholder="End Location" required>
+            <input type="text" class="form-control" th:field="*{endLocation}" placeholder="End Location" required>
 
             <!-- Departure Time -->
-            <input type="datetime-local" class="form-control" required>
+            <input type="datetime-local" class="form-control" th:field="*{departureTime}" required>
 
             <!-- Seats Available -->
-            <input type="number" class="form-control" placeholder="Seats Available" min="1" max="4" required>
+            <input type="number" class="form-control" th:field="*{seatsAvailable}" placeholder="Seats Available" min="1" max="4" required>
 
             <!-- Price per Seat -->
-            <input type="text" class="form-control" placeholder="Price per Seat (in TND)" required>
+            <input type="text" class="form-control" th:field="*{pricePerSeat}" placeholder="Price per Seat (in TND)" required>
 
-            <!-- Restriction -->
-            <textarea class="textarea-fixed" placeholder="Add Restrictions: No Smoking, No Pets ..."></textarea>
+            <!-- Restrictions -->
+            <textarea class="textarea-fixed" th:field="*{restrictions}" placeholder="Add Restrictions: No Smoking, No Pets ..."></textarea>
 
             <!-- Submit Button -->
             <button type="submit" class="btn-submit">Add</button>
         </form>
     </div>
 </div>
+
 <!-- Inclure le Footer -->
 <div th:insert="fragments :: footer"></div>
 

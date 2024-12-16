@@ -14,11 +14,6 @@ public class RideFlowController {
     public String contact() {
         return "Contact"; // Renvoie la vue contact.html
     }
-    @GetMapping("/AddRide")
-    public String addRide() {
-        return "AddRide"; // Renvoie la vue AddRide.html
-    }
-
     @GetMapping("/ReserveRide")
     public String reserveRide() {
         return "ReserveRide"; // Renvoie la vue ReserveRide.html

@@ -44,7 +44,7 @@ public class UserController {
     @GetMapping("/SignIn")
     public String signInPage(Model model) {
         model.addAttribute("user", new User()); // Objet User pour le formulaire
-        return "SignIn"; // Renvoie la vue SignIn.html
+        return "SignIn";
     }
 
     // Traitement du formulaire de connexion
@@ -53,8 +53,10 @@ public class UserController {
         User authenticatedUser = userService.authenticateUser(user);
 
         if (authenticatedUser != null) {
-            // Stockez l'utilisateur et son rôle dans la session
+            // Stockez l'utilisateur dans la session
             session.setAttribute("user", authenticatedUser);
+            session.setAttribute("loggedInUserId", authenticatedUser.getId());
+            session.setAttribute("loggedInUserName", authenticatedUser.getName());
 
             // Stockez le rôle de l'utilisateur dans la session
             if ("DRIVER".equals(authenticatedUser.getRole())) {
@@ -62,7 +64,6 @@ public class UserController {
             } else if ("PASSENGER".equals(authenticatedUser.getRole())) {
                 session.setAttribute("role", "PASSENGER");
             }
-
             // Ajouter un message de succès dans le modèle
             redirectAttributes.addFlashAttribute("LoggedInMessage", "You have successfully logged in!");
             return "redirect:/Home"; // Redirection vers la page d'accueil
@@ -87,13 +88,11 @@ public class UserController {
 
         // Ajouter le rôle au modèle si nécessaire (par exemple, pour afficher des éléments spécifiques dans la vue)
         model.addAttribute("role", role);
-
-        // Retourner la vue Home.html
+        return "Home";
+    }
+    @GetMapping("/")
+    public String Home() {
         return "Home";
     }
 
-    @GetMapping("/")
-    public String Home() {
-        return "Home"; // Renvoie la vue Home.html
-    }
 }

@@ -34,4 +34,9 @@ public class UserService {
 
         return null; // L'authentification a échoué
     }
+
+    public User findUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
 }

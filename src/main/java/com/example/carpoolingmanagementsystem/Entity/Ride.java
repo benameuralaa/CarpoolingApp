@@ -19,7 +19,10 @@ public class Ride {
 
     @ManyToOne
     @JoinColumn(name = "driver_id", nullable = false) // Relation avec l'entité User (conducteur)
-    private User driver; // Conducteur du trajet
+    private User driver;
+
+    @Column(name = "driver_name", nullable = false) // Champ pour stocker le nom du conducteur
+    private String driverName;
 
     // Getters et Setters
     public Long getId() {
@@ -84,5 +87,12 @@ public class Ride {
 
     public void setDriver(User driver) {
         this.driver = driver;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
     }
 }

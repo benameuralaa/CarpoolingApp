@@ -97,7 +97,6 @@
      class="message-container"
      th:text="${LoggedInMessage}" id="flashMessage">
 </div>
-
 <!-- Contenu principal -->
 <section class="hero">
     <div class="container">
@@ -111,19 +110,18 @@
             </div>
         </div>
     </div>
-    <script>
-        // Fonction pour faire disparaître le message après 3 secondes
-        window.onload = function() {
-            var message = document.getElementById('flashMessage');
-            if (message) {
-                setTimeout(function() {
-                    message.style.display = 'none';
-                }, 2000); // 2000ms = 2 secondes
-            }
-        };
-    </script>
 </section>
-
+<script>
+    // Fonction pour faire disparaître le message après 3 secondes
+    window.onload = function() {
+        var message = document.getElementById('flashMessage');
+        if (message) {
+            setTimeout(function() {
+                message.style.display = 'none';
+            }, 2000); // 2000ms = 2 secondes
+        }
+    };
+</script>
 <!-- Inclure le Footer -->
 <div th:replace="~{fragments :: footer}"></div>
 

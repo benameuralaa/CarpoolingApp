@@ -66,7 +66,7 @@
                         <a class="nav-link" th:href="@{/Contact}">Contact us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/Drivers}">Drivers</a>
+                        <a class="nav-link" th:href="@{/Rides}">Rides</a>
                     </li>
                     <!-- Liens pour les conducteurs -->
                     <li class="nav-item" th:if="${session.role == 'DRIVER'}">
@@ -76,7 +76,10 @@
                     <li class="nav-item" th:if="${session.role == 'PASSENGER'}">
                         <a class="nav-link" th:href="@{/ReserveRide}">Reserve Ride</a>
                     </li>
-
+                    <!-- Liens communs -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Drivers}">Drivers</a>
+                    </li>
                     <!--Account DropDown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -96,6 +99,9 @@
                     <!--Account DropDown -->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/Search}">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Rides}">Rides</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/Contact}">Contact us</a>
