@@ -19,7 +19,6 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "passenger_id", nullable = false) // Relation avec la table 'users'
     private User passenger;
-
     private int seatsReserved;
     private Timestamp reservationDate;
 
@@ -30,8 +29,6 @@ public class Booking {
     public enum Status {
         CONFIRMED, CANCELLED
     }
-    //test par salma mh
-
     // Getters et Setters
     public Long getId() {
         return id;

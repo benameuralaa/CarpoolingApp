@@ -137,7 +137,6 @@
      class="message-container"
      th:text="${InvalidcredentialsMessage}" id="flashMessage2">
 </div>
-
 <div class="login-container">
     <h1>Log In</h1>
     <form action="#" th:action="@{/SignIn}" th:object="${user}" method="post">
@@ -155,7 +154,6 @@
             </p>
         </div>
     </form>
-
     <script>
         // Fonction pour faire disparaître les messages après 2 secondes
         window.onload = function() {

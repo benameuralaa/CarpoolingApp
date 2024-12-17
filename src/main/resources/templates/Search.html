@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:background-color="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Search Rides</title>
@@ -41,7 +41,7 @@
             flex-direction: column; /* Organise les éléments en colonne (les uns sous les autres) */
             gap: 10px; /* Ajoute un espace entre les éléments */
         }
-        /* Search Button */
+        /* Search */
         .btn-sky-blue {
             background-color: #0096CE;
             color: white;
@@ -58,7 +58,7 @@
 
 <div class="container mt-5">
     <h3 class="mb-4 text-center">Where would you like to go?</h3>
-    <div class="bg-light p-3 rounded shadow">
+    <div class=" p-4 rounded shadow " style="background-color: #f1e7f7">
         <!-- Search Form -->
         <form method="get" action="/searchRides">
             <div class="row g-3 align-items-end">
@@ -89,7 +89,7 @@
                 <div class="col-md-2">
                     <label for="passengers" class="form-label">Passengers</label>
                     <select id="passengers" name="passengers" class="form-select">
-                        <option value="" selected disabled></option>
+                        <option value="" selected disabled>Select Passengers</option>
                         <option th:value="1" th:text="'1 passenger'" th:selected="${passengers == 1}"></option>
                         <option th:value="2" th:text="'2 passengers'" th:selected="${passengers == 2}"></option>
                         <option th:value="3" th:text="'3 passengers'" th:selected="${passengers == 3}"></option>
@@ -113,8 +113,8 @@
     </div>
 
     <!-- If search has been performed and no results were found -->
-    <div th:if="${searchPerformed == true and (rides == null or rides.isEmpty())}">
-        <div class="alert alert-info text-center" role="alert">
+    <div th:if="${searchPerformed == true and (rides == null or rides.isEmpty())}" >
+        <div class="alert alert-info text-center" role="alert" style="background-color: #f1e7f7">
             No rides found for your search criteria !
         </div>
     </div>

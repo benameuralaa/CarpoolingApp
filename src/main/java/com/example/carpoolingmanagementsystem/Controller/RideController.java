@@ -1,7 +1,10 @@
 package com.example.carpoolingmanagementsystem.Controller;
 
+import com.example.carpoolingmanagementsystem.Entity.Booking;
 import com.example.carpoolingmanagementsystem.Entity.Ride;
 import com.example.carpoolingmanagementsystem.Entity.User;
+import com.example.carpoolingmanagementsystem.Repository.BookingRepository;
+import com.example.carpoolingmanagementsystem.Repository.RideRepository;
 import com.example.carpoolingmanagementsystem.Service.RideService;
 import com.example.carpoolingmanagementsystem.Service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -13,13 +16,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class RideController {
+
+    @Autowired
+    private RideRepository rideRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Autowired
     private RideService rideService; // Injection du service RideService
@@ -101,7 +111,6 @@ public class RideController {
 
         return "Search";  // Retourne la page de recherche
     }
-
     // Affichage de la page Reserve Ride
     @GetMapping("/ReserveRide")
     public String reserveride(Model model) {
