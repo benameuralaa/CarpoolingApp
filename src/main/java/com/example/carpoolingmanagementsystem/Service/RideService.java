@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RideService {
@@ -25,5 +26,8 @@ public class RideService {
     public List<Ride> searchRides(String departure, String destination, LocalDateTime departureTime, Integer passengers) {
         // Construct query logic based on the search parameters
         return rideRepository.findRides(departure, destination, departureTime, passengers);
+    }
+    public Ride getRideById(Long rideId) {
+        return rideRepository.findById(rideId).orElseThrow(() -> new RuntimeException("Ride not found"));
     }
 }

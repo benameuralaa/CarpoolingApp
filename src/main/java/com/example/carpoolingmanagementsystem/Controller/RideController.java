@@ -117,4 +117,48 @@ public class RideController {
         model.addAttribute("ride", new Ride());
         return "ReserveRide";
     }
+    // Réserver un trajet
+    @PostMapping("/ReserveRide/{rideId}")
+    public String reserveRide(@PathVariable Long rideId,
+                              @RequestParam int seats,
+                              HttpSession session,
+                              RedirectAttributes redirectAttributes) {
+        // Vérifie si l'utilisateur est connecté
+        Long passengerId = (Long) session.getAttribute("loggedInUserId");
+        if (passengerId == null) {
+            redirectAttributes.addFlashAttribute("error", "Please log in to reserve a ride.");
+            return "redirect:/SignIn";
+        }
+
+        User passenger = userService.findUserById(passengerId);
+
+        // Récupérer le trajet
+        Ride ride = rideService.getRideById(rideId);
+        if (ride == null) {
+            redirectAttributes.addFlashAttribute("error", "Ride not found.");
+            return "redirect:/Rides";
+        }
+
+        // Validation des sièges disponibles
+        if (ride.getSeatsAvailable() < seats) {
+            redirectAttributes.addFlashAttribute("error", "Not enough seats available.");
+            return "redirect:/Rides";
+        }
+
+        // Mise à jour des sièges disponibles
+        ride.setSeatsAvailable(ride.getSeatsAvailable() - seats);
+        rideService.saveRide(ride);
+
+        // Enregistrer la réservation
+        Booking booking = new Booking();
+        booking.setRide(ride);
+        booking.setPassenger(passenger);
+        booking.setSeatsReserved(seats);
+        booking.setReservationDate(new Timestamp(System.currentTimeMillis()));
+        booking.setStatus(Booking.Status.CONFIRMED);
+        bookingRepository.save(booking);
+
+        redirectAttributes.addFlashAttribute("message", "Reservation successful!");
+        return "redirect:/Rides";
+    }
 }
