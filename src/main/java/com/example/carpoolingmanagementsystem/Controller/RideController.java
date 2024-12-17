@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,7 +56,7 @@ public class RideController {
         return "redirect:/Rides";
 
     }
-    // Afficher les rides dans la page d'accueil
+    // Afficher Rides dans la page d'accueil
     @GetMapping("/Rides")
     public String showRides(Model model) {
         // Récupérer les trajets depuis le service
@@ -61,7 +64,48 @@ public class RideController {
         model.addAttribute("rides", rides);
         return "Rides";
     }
+    // Search for rides based on the provided parameters
+    @GetMapping("/searchRides")
+    public String searchRides(@RequestParam(required = false) String departure,
+                              @RequestParam(required = false) String destination,
+                              @RequestParam(required = false) String date,
+                              @RequestParam(required = false) Integer passengers, Model model) {
+        List<Ride> rides = new ArrayList<>();
+        boolean searchPerformed = false;
 
+        // Vérifie si au moins un paramètre est fourni
+        if ((departure != null && !departure.trim().isEmpty()) ||
+                (destination != null && !destination.trim().isEmpty()) ||
+                (date != null && !date.trim().isEmpty()) ||
+                passengers != null) {
 
+            searchPerformed = true;
+            LocalDateTime departureTime = null;
 
+            // Convert date string to LocalDateTime (defaulting to midnight if date is provided)
+            if (date != null && !date.isEmpty()) {
+                departureTime = LocalDateTime.parse(date + "T00:00:00");
+            }
+
+            // Appelle le service pour la recherche des rides
+            rides = rideService.searchRides(departure, destination, departureTime, passengers);
+        }
+
+        // Ajouter les attributs au modèle
+        model.addAttribute("departure", departure);
+        model.addAttribute("destination", destination);
+        model.addAttribute("date", date);
+        model.addAttribute("passengers", passengers);
+        model.addAttribute("rides", rides);
+        model.addAttribute("searchPerformed", searchPerformed); // Indique qu'une recherche a été effectuée
+
+        return "Search";  // Retourne la page de recherche
+    }
+
+    // Affichage de la page Reserve Ride
+    @GetMapping("/ReserveRide")
+    public String reserveride(Model model) {
+        model.addAttribute("ride", new Ride());
+        return "ReserveRide";
+    }
 }

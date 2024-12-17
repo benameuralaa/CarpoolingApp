@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
-    <title>Search</title>
+    <title>Search Rides</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -52,45 +53,49 @@
     </style>
 </head>
 <body>
-<!-- Inclure la Navbar -->
+<!-- Include the Navbar -->
 <div th:replace="~{fragments :: header}"></div>
 
-<!-- Search Section  -->
 <div class="container mt-5">
     <h3 class="mb-4 text-center">Where would you like to go?</h3>
     <div class="bg-light p-3 rounded shadow">
         <!-- Search Form -->
-        <form>
+        <form method="get" action="/searchRides">
             <div class="row g-3 align-items-end">
                 <!-- Departure Input -->
                 <div class="col-md-3">
                     <label for="departure" class="form-label">Departure</label>
-                    <input type="text" id="departure" class="form-control" placeholder="Enter departure location">
+                    <input type="text" id="departure" name="departure" class="form-control"
+                           placeholder="Enter departure location"
+                           th:value="${departure}" />
                 </div>
 
                 <!-- Destination Input -->
                 <div class="col-md-3">
                     <label for="destination" class="form-label">Destination</label>
-                    <input type="text" id="destination" class="form-control" placeholder="Enter destination">
+                    <input type="text" id="destination" name="destination" class="form-control"
+                           placeholder="Enter destination"
+                           th:value="${destination}" />
                 </div>
 
                 <!-- Date Input -->
                 <div class="col-md-3">
                     <label for="date" class="form-label">Date</label>
-                    <input type="date" id="date" class="form-control">
+                    <input type="date" id="date" name="date" class="form-control"
+                           th:value="${date}" />
                 </div>
 
                 <!-- Passengers Dropdown -->
                 <div class="col-md-2">
                     <label for="passengers" class="form-label">Passengers</label>
-                    <select id="passengers" class="form-select">
-                        <option value="1">1 passenger</option>
-                        <option value="2">2 passengers</option>
-                        <option value="3">3 passengers</option>
-                        <option value="4">4 passengers</option>
+                    <select id="passengers" name="passengers" class="form-select">
+                        <option value="" selected disabled></option>
+                        <option th:value="1" th:text="'1 passenger'" th:selected="${passengers == 1}"></option>
+                        <option th:value="2" th:text="'2 passengers'" th:selected="${passengers == 2}"></option>
+                        <option th:value="3" th:text="'3 passengers'" th:selected="${passengers == 3}"></option>
+                        <option th:value="4" th:text="'4 passengers'" th:selected="${passengers == 4}"></option>
                     </select>
                 </div>
-
                 <!-- Search Button -->
                 <div class="col-md-1">
                     <button type="submit" class="btn btn-sky-blue w-100">Search</button>
@@ -98,9 +103,55 @@
             </div>
         </form>
     </div>
+
+    <!-- Display the results -->
+    <h4 class="mt-5">Search Results</h4>
+
+    <!-- If no search has been performed, don't display anything -->
+    <div th:if="${searchPerformed == false}" class="col-12">
+        <!-- No content when no search is performed -->
+    </div>
+
+    <!-- If search has been performed and no results were found -->
+    <div th:if="${searchPerformed == true and (rides == null or rides.isEmpty())}">
+        <div class="alert alert-info text-center" role="alert">
+            No rides found for your search criteria !
+        </div>
+    </div>
+
+    <!-- If search has been performed and there are results -->
+    <div th:if="${searchPerformed == true and !#lists.isEmpty(rides)}">        <div class="table-responsive">
+        <div class="table-responsive">
+        <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Departure</th>
+                    <th>Destination</th>
+                    <th>Departure Time</th>
+                    <th>Seats Available</th>
+                    <th>Price per Seat</th>
+                    <th>Driver</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ride : ${rides}">
+                    <td th:text="${ride.startLocation}"></td>
+                    <td th:text="${ride.endLocation}"></td>
+                    <td th:text="${#temporals.format(ride.departureTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${ride.seatsAvailable}"></td>
+                    <td th:text="${ride.pricePerSeat}"></td>
+                    <td th:text="${ride.driverName}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
 </div>
-<!-- Inclure le Footer -->
+
+<!-- Include the Footer -->
 <div th:replace="~{fragments :: footer}"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

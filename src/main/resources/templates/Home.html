@@ -28,20 +28,6 @@
         .navbar-nav .nav-link:hover {
             color: #007bff;
         }
-        /* Footer */
-        footer {
-            background-color: #f8f9fa; /* Définit une couleur de fond pour le footer */
-            padding: 20px 0; /* Ajoute un espace intérieur en haut et en bas du footer */
-            position: fixed; /* Fixe le footer en bas de la page */
-            bottom: 0; /* Place le footer tout en bas de la fenêtre */
-            width: 100%; /* Étend le footer sur toute la largeur de la page */
-            text-align: center; /* Centre le texte */
-            border-top: 1px solid #ddd; /* Ajoute une bordure grise en haut du footer */
-            margin-top: auto; /* Permet de pousser le footer en bas lorsque le contenu est insuffisant */
-            display: flex; /* Active Flexbox pour organiser les éléments à l'intérieur du footer */
-            flex-direction: column; /* Organise les éléments en colonne (les uns sous les autres) */
-            gap: 10px; /* Ajoute un espace entre les éléments */
-        }
         /* Hero Section */
         .hero {
             background-color: #ffffff; /* Définit une couleur de fond blanche pour la section héro */
@@ -82,8 +68,48 @@
         .success-message {
             color: green;
         }
-        .error-message {
-            color: red;
+        /* Content section styles */
+        .content-section {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .content-card {
+            flex: 1;
+            background: #f1e7f7;
+            border-radius: 20px; /* Bordure symétrique */
+            margin: 15px;
+            text-align: center;
+            padding: 40px; /* Augmenter la taille de la carte */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #dee2e6; /* Bordure subtile */
+        }
+        .content-card:hover {
+            transform: translateY(-10px); /* Effet de survol */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Ombre plus forte au survol */
+        }
+        .content-card h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        .content-card p {
+            font-size: 15px;
+            color: #555;
+        }
+        .content-card button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #0096CE;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .content-card button:hover {
+            background-color: #02b3ba;
         }
     </style>
 </head>
@@ -111,6 +137,19 @@
         </div>
     </div>
 </section>
+<!-- Features Section -->
+<section class="content-section">
+    <div class="content-card">
+        <h3>We’re Here to Help</h3>
+        <p>Got a question or need assistance? Our team is just a message away to provide you with all the answers you need.</p>
+        <button onclick="location.href='/Contact'">Contact us</button>
+    </div>
+    <div class="content-card">
+        <h3>Find Your Perfect Ride</h3>
+        <p>Looking for a ride? Search through available carpooling options and find the best match for your journey. It's that simple!</p>
+        <button onclick="location.href='/searchRides'">Search Ride</button>
+    </div>
+</section>
 <script>
     // Fonction pour faire disparaître le message après 3 secondes
     window.onload = function() {
@@ -122,9 +161,6 @@
         }
     };
 </script>
-<!-- Inclure le Footer -->
-<div th:replace="~{fragments :: footer}"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

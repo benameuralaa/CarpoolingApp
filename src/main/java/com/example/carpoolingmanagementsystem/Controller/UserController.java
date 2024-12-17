@@ -1,6 +1,7 @@
 package com.example.carpoolingmanagementsystem.Controller;
 
 
+import com.example.carpoolingmanagementsystem.Entity.Ride;
 import com.example.carpoolingmanagementsystem.Entity.User;
 import com.example.carpoolingmanagementsystem.Service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -81,6 +82,7 @@ public class UserController {
         return "redirect:/Home"; // Redirection vers la page d'accueil
     }
 
+    // Affichage de la page de Home
     @GetMapping("/Home")
     public String homePage(HttpSession session, Model model) {
         // Récupérer le rôle de l'utilisateur depuis la session
@@ -90,6 +92,7 @@ public class UserController {
         model.addAttribute("role", role);
         return "Home";
     }
+    // Affichage de la page de Home
     @GetMapping("/")
     public String Home() {
         return "Home";
